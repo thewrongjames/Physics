@@ -1,4 +1,4 @@
-import pygame, time, sys,
+import pygame, time, sys
 from pygame.locals import *
 
 class Engine:
@@ -37,7 +37,7 @@ class Engine:
             update()
 
             for event in self.events:
-                if event.type == KEYDOWN:.
+                if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
                         pygame.event.post(pygame.event.Event(QUIT))
                 elif event.type == QUIT:
