@@ -9,4 +9,5 @@ from .geometry import vector_to_line
 from .shapes import Circle
 from .shapes import Rectangle
 from .shapes import is_valid_interval
+from .mover import Mover
 import random

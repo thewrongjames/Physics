@@ -3,8 +3,7 @@ from pygame.locals import *
 
 class Engine:
     def __init__(self):
-        self.events = None
-        self.surface = None
+        self.events = []
         self.delta_time = 0
 
     def start(self, setup, update, width, height, caption = "Window"):
@@ -29,7 +28,6 @@ class Engine:
         setup()
 
         pygame.display.set_caption(self.caption)
-
         while True:
             start_time = time.time()
             self.events = pygame.event.get()
@@ -44,8 +42,8 @@ class Engine:
                     pygame.quit()
                     sys.exit()
 
-        pygame.display.update()
-        self.delta_time = time.time() - start_time
+            pygame.display.update()
+            self.delta_time = time.time() - start_time
 
 def init():
     engine = Engine()

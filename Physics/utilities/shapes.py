@@ -73,7 +73,7 @@ class Circle(Shape):
         pygame.draw.circle(
             surface,
             self.colour,
-            (int(self.centre.x), int(self.centre.y)),
+            (int(self.position.x), int(self.position.y)),
             self.radius
         )
 

@@ -6,7 +6,7 @@ class Mover():
     def __init__(
             self,
             surface,
-            circle = Circle(Vector(0, 0), 10, pygame.color(0, 0, 0))
+            circle = Circle(Vector(0, 0), 10, pygame.Color(0, 0, 0)),
             mass = 1.0,
     ):
         if not isinstance(surface, pygame.Surface):
@@ -22,12 +22,22 @@ class Mover():
         self.velocity = Vector(0, 0)
         self.acceleration = Vector(0, 0)
 
+    @property
+    def position(self):
+        return self.circle.position
+
+    @position.setter
+    def position(self, value):
+        if not isinstance(value, Vector):
+            raise TypeError("position can only be set to a Vector.")
+        self.circle.position = value
+
     def update(self, delta_time):
         self.velocity += self.acceleration * delta_time
-        self.location += self.velocity * delta_time
+        self.position += self.velocity * delta_time
         self.acceleration *= 0
 
-    def applyForce(self, force):
+    def apply_force(self, force):
         if not isinstance(force, Vector):
             raise TypeError("force must be a Vector.")
         if self.mass != 0:
@@ -36,4 +46,4 @@ class Mover():
             raise ValueError("Force may only be applied to movers with mass.")
 
     def display(self):
-        self.circle.display()
+        self.circle.display(self.surface)
