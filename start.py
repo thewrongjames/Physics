@@ -51,15 +51,15 @@ def update():
     for a in range(len(movers)):
         for b in range(len(movers)):
             if a != b and movers[a] != None and movers[b] != None:
-                '''
+                displacement = movers[b].position - movers[a].position
                 if movers[a].circle.collides_with_circle(movers[b].circle):
+                    new_mass = movers[a].mass + movers[b].mass
+                    ratio = movers[b].radius / (movers[a].radius + movers[b].radius)
+                    new_position = movers[a].position + ratio * displacement
                     new_mover = Physics.utilities.Mover(
                         scene.surface,
                         Physics.utilities.Circle(
-                            Physics.utilities.Vector(
-                                (movers[a].position.x + movers[b].position.x) / 2,
-                                (movers[a].position.y + movers[b].position.y) / 2
-                            ),
+                            new_position,
                             movers[a].circle.radius + movers[b].circle.radius,
                             pygame.Color(
                                 random.randrange(256),
@@ -67,19 +67,24 @@ def update():
                                 random.randrange(256)
                             )
                         ),
-                        movers[a].mass + movers[b].mass
+                        new_mass
                     )
+                    new_momentum = (
+                        movers[a].velocity * movers[a].mass
+                        + movers[b].velocity * movers[b].mass
+                    )
+                    new_velocity = new_momentum / new_mass
+                    new_mover.velocity = new_velocity
                     movers.append(new_mover)
                     movers[a] = None
                     movers[b] = None
                     continue
-                '''
-                distance = (movers[b].position - movers[a].position).magnitude
+                distance = displacement.magnitude
                 if distance < 5:
                     distance = 5
                 if distance > 50:
                     distance = 50
-                direction = (movers[b].position - movers[a].position).unit_vector
+                direction = displacement.unit_vector
                 magnitude = (G * movers[a].mass * movers[b].mass) / distance**2
                 gravity = direction * magnitude
                 movers[a].apply_force(gravity)

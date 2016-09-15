@@ -32,6 +32,16 @@ class Mover():
             raise TypeError("position can only be set to a Vector.")
         self.circle.position = value
 
+    @property
+    def radius(self):
+        return self.circle.radius
+
+    @radius.setter
+    def radius(self, value):
+        if not isinstance(value, (int, float)):
+            raise TypeError("radius must be a float or an int.")
+        self.circle.radius = value
+
     def update(self, delta_time):
         self.velocity += self.acceleration * delta_time
         self.position += self.velocity * delta_time
