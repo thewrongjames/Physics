@@ -5,15 +5,17 @@ import pygame
 WIDTH = 800
 HEIGHT = 600
 G = 1000
+NUM_MOVERS = 8
+STARTING_VELOCITIES = True
+CLEAR_SCREEN = True
 
 scene = Physics.engine.init()
 
 movers = []
-num_movers = 10
 
 def setup():
     global movers
-    for i in range(num_movers):
+    for i in range(NUM_MOVERS):
         mass_size = random.randint(1, 10)
         movers.append(
             Physics.utilities.Mover(
@@ -21,12 +23,12 @@ def setup():
                 Physics.utilities.Circle(
                     Physics.utilities.Vector(
                         random.randint(
-                            int(WIDTH*1/10),
-                            int(WIDTH*9/10)
+                            int(WIDTH*2/10),
+                            int(WIDTH*8/10)
                         ),
                         random.randint(
-                            int(HEIGHT*1/10),
-                            int(HEIGHT*9/10)
+                            int(HEIGHT*2/10),
+                            int(HEIGHT*8/10)
                         )
                     ),
                     mass_size,
@@ -39,11 +41,17 @@ def setup():
                 mass_size
             )
         )
+        if STARTING_VELOCITIES:
+            movers[i].velocity = Physics.utilities.Vector(
+                random.random() * 2 - 1,
+                random.random() * 2 - 1
+            ).get_at_magnitude(random.random() * 100)
 
 def update():
     global movers
 
-    scene.surface.fill(pygame.Color(255, 255, 255))
+    if CLEAR_SCREEN:
+        scene.surface.fill(pygame.Color(255, 255, 255))
 
     while None in movers:
         movers.remove(None)
