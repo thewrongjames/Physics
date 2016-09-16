@@ -8,6 +8,8 @@ G = 1000
 NUM_MOVERS = 8
 STARTING_VELOCITIES = True
 CLEAR_SCREEN = True
+MIN_MASS = 1
+MAX_MASS = 20
 
 scene = Physics.engine.init()
 
@@ -16,7 +18,7 @@ movers = []
 def setup():
     global movers
     for i in range(NUM_MOVERS):
-        mass_size = random.randint(1, 10)
+        mass_size = random.randint(MIN_MASS, MAX_MASS)
         movers.append(
             Physics.utilities.Mover(
                 scene.surface,
