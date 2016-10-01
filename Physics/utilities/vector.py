@@ -13,15 +13,15 @@ class Vector:
         self.x = x
         self.y = y
 
-    def __add__(self, addingVector):
-        if not isinstance(addingVector, Vector):
+    def __add__(self, adding_vector):
+        if not isinstance(adding_vector, Vector):
             return NotImplemented
-        return Vector(self.x+addingVector.x, self.y+addingVector.y)
+        return Vector(self.x+adding_vector.x, self.y+adding_vector.y)
 
-    def __sub__(self, subingVector):
-        if not isinstance(subingVector, Vector):
+    def __sub__(self, subing_vector):
+        if not isinstance(subing_vector, Vector):
             return NotImplemented
-        return Vector(self.x-subingVector.x, self.y-subingVector.y)
+        return Vector(self.x-subing_vector.x, self.y-subing_vector.y)
 
     def __mul__(self, multiplier):
         if not isinstance(multiplier, (int, float)):
